@@ -1,9 +1,3 @@
-variable "account_id" {
-  type        = string
-  description = "The account ID where you want resource deployed to"
-  default     = "803300090470"
-}
-
 variable "database_name" {
   type        = string
   description = "The name of the database cluster"
@@ -26,12 +20,6 @@ variable "db_master_username" {
   type        = string
   description = "The name of the master password for the RDS instance"
   default     = "rds_proxy"
-}
-
-variable "lambda_function_name" {
-  type        = string
-  description = "The name of the Lambda function that will call the RDS proxy."
-  default     = "rds-proxy-lambda"
 }
 
 variable "project_name" {

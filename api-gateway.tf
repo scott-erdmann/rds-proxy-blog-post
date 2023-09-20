@@ -38,12 +38,13 @@ resource "aws_api_gateway_stage" "stage" {
 }
 
 resource "aws_api_gateway_integration" "proxy_integration" {
+  depends_on              = [module.demo_GET_lambda]
   rest_api_id             = aws_api_gateway_rest_api.api.id
   resource_id             = aws_api_gateway_resource.proxy_endpoint.id
   http_method             = aws_api_gateway_method.proxy_method.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = aws_lambda_function.rds_proxy_lambda.invoke_arn
+  uri = module.demo_GET_lambda.lambda_invoke_arn
 }
 
 # curl --location 'https://ab9zaxame4.execute-api.us-east-1.amazonaws.com/dev/rds_proxy'

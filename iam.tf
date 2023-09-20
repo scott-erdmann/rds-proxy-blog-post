@@ -20,8 +20,7 @@ resource "aws_iam_role" "rds_secrets_access_role" {
 }
 
 resource "aws_iam_policy" "rds_creds_access_policy" {
-  name = "RDSAccessPolicy"
-
+  name        = "RDSAccessPolicy"
   description = "IAM policy to access an RDS instance"
 
   policy = jsonencode({
@@ -37,11 +36,7 @@ resource "aws_iam_policy" "rds_creds_access_policy" {
       },
       {
         Action = [
-          #   "secretsmanager:GetResourcePolicy",
           "secretsmanager:GetSecretValue"
-          #   "secretsmanager:DescribeSecret",
-          #   "secretsmanager:ListSecretVersionIds",
-          #   "secretsmanager:ListSecrets"
         ],
         Effect = "Allow",
         # Resource = "${aws_secretsmanager_secret.rds_credentials.arn}"

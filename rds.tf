@@ -1,11 +1,3 @@
-data "aws_secretsmanager_secret" "rds_db_secret_name" {
-  name = var.rds_db_secret_name
-}
-
-data "aws_secretsmanager_secret_version" "rds_db_secret_current" {
-  secret_id = data.aws_secretsmanager_secret.rds_db_secret_name.id
-}
-
 resource "aws_db_subnet_group" "default" {
   name = "vpc-main-private-subnet-group"
   subnet_ids = [
@@ -15,12 +7,11 @@ resource "aws_db_subnet_group" "default" {
 }
 
 resource "aws_rds_cluster" "rds_cluster" {
-  depends_on         = [aws_secretsmanager_secret.rds_credentials]
-  cluster_identifier = var.project_name
-  database_name      = var.database_name
-  master_username    = var.db_master_username
-  master_password    = "thisisafakepassword"
-  #   master_password                     = jsondecode(data.aws_secretsmanager_secret_version.rds_db_secret_current)["password"]
+  depends_on                          = [aws_secretsmanager_secret.rds_credentials]
+  cluster_identifier                  = var.project_name
+  database_name                       = var.database_name
+  master_username                     = var.db_master_username
+  master_password                     = jsondecode(data.aws_secretsmanager_secret_version.rds_db_secret_current.secret_string)["password"]
   engine                              = "aurora-postgresql"
   engine_mode                         = "provisioned"
   engine_version                      = "13.6"
