@@ -44,7 +44,5 @@ resource "aws_api_gateway_integration" "proxy_integration" {
   http_method             = aws_api_gateway_method.proxy_method.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri = module.demo_GET_lambda.lambda_invoke_arn
+  uri                     = module.demo_GET_lambda.lambda_invoke_arn
 }
-
-# curl --location 'https://ab9zaxame4.execute-api.us-east-1.amazonaws.com/dev/rds_proxy'

@@ -43,8 +43,7 @@ resource "aws_security_group" "rds_cluster" {
 
 resource "aws_security_group" "rds_proxy" {
   name        = "rds-postgres-proxy-sg"
-#   description = "Allows VPC traffic to RDS from the proxy"
-  description = "Allow Postgres traffic to rds from proxy"
+  description = "Allows VPC traffic to RDS from the proxy"
   vpc_id      = aws_vpc.vpc_main.id
 
   ingress {
@@ -63,5 +62,3 @@ resource "aws_security_group" "rds_proxy" {
     ipv6_cidr_blocks = ["::/0"]
   }
 }
-
-

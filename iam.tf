@@ -38,8 +38,7 @@ resource "aws_iam_policy" "rds_creds_access_policy" {
         Action = [
           "secretsmanager:GetSecretValue"
         ],
-        Effect = "Allow",
-        # Resource = "${aws_secretsmanager_secret.rds_credentials.arn}"
+        Effect   = "Allow",
         Resource = "*"
       },
       {
