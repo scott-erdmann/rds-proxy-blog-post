@@ -1,3 +1,9 @@
+variable "api_gateway_name" {
+  type        = string
+  description = "The name of the API Gateway instance"
+  default     = "rds-proxy-blog-post-gateway"
+}
+
 variable "database_name" {
   type        = string
   description = "The name of the database cluster"
@@ -7,7 +13,7 @@ variable "database_name" {
 variable "db_availability_zones" {
   type        = list(string)
   description = "The availability zones that the RDS instance will be deployed to"
-  default     = ["us-east-1a", "us-east-1b", "us-east-1c"]
+  default     = ["us-east-1a", "us-east-1b"]
 }
 
 variable "db_proxy_name" {
@@ -36,5 +42,5 @@ variable "region" {
 
 variable "rds_db_secret_name" {
   type    = string
-  default = "rds/rds-proxy-credentials"
+  default = "rds/rds-proxy-demo-credentials"
 }

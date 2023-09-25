@@ -61,7 +61,6 @@ resource "aws_db_proxy" "rds_proxy" {
   }
 }
 
-# RDS Proxy Target Group
 resource "aws_db_proxy_default_target_group" "default_target_group" {
   db_proxy_name = aws_db_proxy.rds_proxy.name
 
@@ -72,7 +71,6 @@ resource "aws_db_proxy_default_target_group" "default_target_group" {
   }
 }
 
-# RDS Proxy Target
 resource "aws_db_proxy_target" "demo" {
   db_cluster_identifier = aws_rds_cluster.rds_cluster.id
   db_proxy_name         = aws_db_proxy.rds_proxy.name

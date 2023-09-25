@@ -45,3 +45,23 @@ terraform {
 After you've provisoned all of the infrastructure in the `backend.tf` file, you should uncomment the `backend "s3"` terraform block and run `terraform init` once again. You'll be prompted with a message asking if you'd like to copy the existing state to the new backend. Type "yes" and continue.
 
 Now that you have your backend setup, you can freely provision the rest of the resources within the repo to setup your API Gateway + Lambda + RDS/RDS Proxy application stack.
+
+# Recommended Resource Provisioning Order
+Due to various dependencies within the set of resources that make up the terraform template, the resources should be provisioned in the following order.
+
+## First round of provisioning
+The first round of provisioning should include everything in the following files:
+    - `ec2.tf`
+    - `vpc.tf`
+    - `kms.tf`
+    - `secrets.tf` (resource only, not data resources)
+    - `api-gateway.tf` (everything except for the commented out resources)
+
+## Second round of provisioning
+The second round of provisioning should include everything in the following files:
+    - `main.tf` (requires running `terraform init` again)
+    - `secrets.tf` (data resources, set a username and password in the secret's value)
+    - `rds.tf`
+
+## Third round of provisioning
+    - `api-gateway.tf` (everything else)

@@ -9,13 +9,14 @@ terraform {
 
   required_version = ">= 1.5"
 
-  backend "s3" {
-    bucket         = "terraform-remote-state-rds-proxy-blog-post"
-    key            = "dev/us-east-1/terraform.tfstate"
-    region         = "us-east-1"
-    encrypt        = true
-    dynamodb_table = "terraform-lock-table-rds-proxy-blog-post"
-  }
+  # Uncomment after resources within this file have been deployed.
+  #   backend "s3" {
+  #     bucket         = "terraform-remote-state-rds-proxy-blog-post"
+  #     key            = "dev/us-east-1/terraform.tfstate"
+  #     region         = "us-east-1"
+  #     encrypt        = true
+  #     dynamodb_table = "terraform-lock-table-rds-proxy-blog-post"
+  #   }
 }
 
 provider "aws" {

@@ -1,5 +1,5 @@
 resource "aws_api_gateway_rest_api" "api" {
-  name = "rds-proxy-blog-post-gateway"
+  name = var.api_gateway_name
 
   endpoint_configuration {
     types = ["REGIONAL"]
@@ -19,7 +19,13 @@ resource "aws_api_gateway_method" "proxy_method" {
   authorization = "NONE"
 }
 
+# Uncomment and provison after the Lambda function has been provisioned.
 resource "aws_api_gateway_deployment" "proxy_deployment" {
+  depends_on = [
+    aws_api_gateway_rest_api.api,
+    aws_api_gateway_method.proxy_method,
+    aws_api_gateway_integration.proxy_integration
+  ]
   rest_api_id = aws_api_gateway_rest_api.api.id
 
   triggers = {
